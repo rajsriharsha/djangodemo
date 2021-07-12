@@ -16,6 +16,9 @@ class Incident(models.Model):
     iteration = models.PositiveIntegerField(null=False, editable=False)  # 0
     date = models.DateField()
     incident_notes = models.TextField(default="")
+    classification = models.CharField(
+        max_length=10, null=True, blank=True
+    )
 
     def save(self, *args, **kwargs):
         if self.pk is None:  # New object is being created
