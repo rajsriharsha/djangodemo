@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Phone Numbers List{% endblock %}
+
+{% block header_text %}Phone Numbers{% endblock %}
+{% block content %}
+<div>
+    <div>
+        <a href="{% url 'PhoneNumbersCreate' %}">
+            <button class="btn btn-primary">Create</button>
+        </a>
+    </div>
+    {% for obj in object_list %}
+    <div style="border: 1px solid black" class="my-1 p-1" id="obj-{{ obj.id }}">
+        <p>id: {{ obj.id }}</p>
+        <p>Name: {{ obj.name }}</p>
+        <p>Numbers:</p>
+        <ol></ol>
+        <script>
+            $(document).ready(function () {
+                const numbers = JSON.parse('{{ obj.phone_numbers|safe }}');
+                numbers.forEach((num) => {
+                    $('#obj-{{ obj.id }} ol').append(`<li>${num.type}: ${num.number}</li>`)
+                });
+            });
+        </script>
+        <div>
+            <a href="{% url 'PhoneNumbersUpdate' obj.id %}">
+                <button class="btn btn-primary btn-sm">Edit</button>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

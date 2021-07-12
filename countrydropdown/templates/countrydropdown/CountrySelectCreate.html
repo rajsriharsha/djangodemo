@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Country Select Create{% endblock %}
+{% block content %}
+<form method="POST" class="needs-validation" novalidate>
+  {% csrf_token %}
+  {{form.as_p}}
+  <!-- Country Select -->
+  <div class="mb-3">
+    <label for="country" class="form-label">Country:</label>
+    <select class="form-select" required id="country">
+      <option value="" selected="">---------</option>
+      {% for country in country_list %}
+      <option value="{{ country }}">{{ country }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <!-- State Select -->
+  <div class="mb-3">
+    <label for="state" class="form-label">State:</label>
+    <select class="form-select" required id="state" disabled>
+      <option value="" selected="">---------</option>
+    </select>
+  </div>
+  <!-- City Select -->
+  <div class="mb-3">
+    <label for="city" class="form-label">City:</label>
+    <select class="form-select {% if form.errors.location %}is-invalid{% endif %}" required id="city" name="location"
+      disabled>
+      <option value="" selected="">---------</option>
+    </select>
+    <div class="invalid-feedback">
+      {% for error in form.errors.location %}
+      {{error}}
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Submit -->
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-primary" type="submit">Create</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function disableState() {
+    $("#state").prop('disabled', true).val('');
+    var select = $("#state")[0];
+    select.options.length = 0; //remove all options
+    select.add(new Option('---------', '')); // add blank option
+  }
+  function enableState() {
+    $('#state').prop('disabled', false);
+  }
+
+  function disableCity() {
+    $("#city").prop('disabled', true).val('');
+    var select = $("#city")[0];
+    select.options.length = 0; //remove all options
+    select.add(new Option('---------', '')); // add blank option
+  }
+  function enableCity() {
+    $('#city').prop('disabled', false);
+  }
+
+  $('#country').change((e) => {
+    // Disable State & City Select
+    disableState();
+    disableCity();
+    // Fetch State dropdown options
+    fetch(`/countrydropdown/country-select-options?country=${e.target.value}`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        const states = res.state;
+        var select = $("#state")[0];
+        states.forEach(state => {
+          select.add(new Option(state, state)); // Add options to select element
+        });
+      })
+      .finally(() => {
+        // Enable State Select
+        enableState();
+      });
+  })
+
+  $('#state').change((e) => {
+    // Disable City Select
+    disableCity();
+    // Fetch State dropdown options
+    fetch(`/countrydropdown/country-select-options?state=${e.target.value}`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        const cities = res.city;
+        var select = $("#city")[0];
+        cities.forEach(city => {
+          select.add(new Option(city.city, city.id)); // Add options to select element
+        });
+      })
+      .finally(() => {
+        // Enable City Select
+        enableCity();
+      });
+  })
+</script>
+{% endblock scripts %}

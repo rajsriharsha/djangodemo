@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ChildA Create</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
+  {{ form.media }}
+</head>
+
+<body>
+  <div>
+    <h1>ChildA Create</h1>
+    <div style="max-width: 500px;">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <p>
+          {{ form.dt.label_tag }}
+          <input id="{{ form.dt.id_for_label }}" name="{{ form.dt.html_name }}" type="date"
+            value="{{ form.dt.value|date:'Y-m-d' }}" />
+        </p> -->
+        <button class="btn btn-primary" type="submit">Create</button>
+      </form>
+      <input id="datetimepicker" type="text" />
+      <input id="datetimepicker2" type="text" />
+    </div>
+  </div>
+  <script>
+    jQuery('#datetimepicker').datetimepicker();
+    // jQuery('#datetimepicker2').datetimepicker({timepicker:false});
+  </script>
+</body>
+
+</html>

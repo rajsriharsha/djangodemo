@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}PaginationDemos List{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+{% endblock head %}
+
+{% block header_text %}PaginationDemos{% endblock %}
+{% block content %}
+<form class="row my-4">
+    <div class="col-md-3">
+        <label for="id_filter_name" class="form-label">Name</label>
+        <input class="form-control" id="id_filter_name" name="name" value="{{ request.GET.name }}" />
+    </div>
+    <div class="col-md-3">
+        <label for="id_filter_amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="id_filter_amount" name="amount"
+            value="{{ request.GET.amount }}" />
+    </div>
+    <div class="col-md-3">
+        <label for="id_filter_amount" class="form-label">Date Range</label>
+        <input type="text" class="form-control" id="id_daterange" value="" />
+        <input hidden type="text" class="form-control" id="id_createdAt_gte" name="createdAt_gte"
+            value="{{ request.GET.createdAt_gte }}" />
+        <input hidden type="text" class="form-control" id="id_createdAt_lte" name="createdAt_lte"
+            value="{{ request.GET.createdAt_lte }}" />
+    </div>
+    <div class="col-1 d-grid align-items-end mx-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+    <div class="col-1 d-grid align-items-end mx-auto">
+        <a href="/sortnpage/pagination-demos-datatables/">
+            <button type="button" class="btn btn-primary">Reset</button>
+        </a>
+    </div>
+</form>
+<div class="d-flex justify-content-evenly">
+    <a href="{% url 'PaginationDemoListDatatables' %}?createdAt_lte={{ today }}&createdAt_gte={{ last_7_day }}">
+        Created in last 7 days
+    </a>
+    <a href="{% url 'PaginationDemoListDatatables' %}?createdAt_lte={{ last_8_day }}">Created earlier</a>
+</div>
+<hr />
+<table id="datatable" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>amount</td>
+            <td>craetedAt</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+    // Initialize datatable
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "/sortnpage/pagination-demos-data/" + window.location.search,
+            columns: [
+                { data: 'id', orderable: false },
+                { data: 'name', className: 'name' },
+                { data: 'amount', className: 'amount' },
+                { data: 'createdAt', render: (val) => new Date(val).toLocaleDateString('en-AU') },
+            ],
+            order: [[1, "asc"]],
+            createdRow: function (row, data, dataIndex) {
+                // console.log(row, data, dataIndex);
+                if (data.amount === 0) $(row).children('.name').addClass('text-danger')
+                if (data.amount > 0) $(row).children('.amount').addClass('text-success')
+            },
+        });
+    });
+    // Initialize date range picker
+    const start = "{{ request.GET.createdAt_gte }}";
+    const end = "{{ request.GET.createdAt_lte }}";
+    const startDate = start ? moment(start).format("DD/MM/YYYY") : undefined;
+    const endDate = end ? moment(end).format("DD/MM/YYYY") : undefined;
+    if (startDate && endDate) $('#id_daterange').val(startDate + " - " + endDate);
+    $('#id_daterange').daterangepicker({
+        autoUpdateInput: false,
+        locale: {
+            format: "DD/MM/YYYY",
+            separator: " - ",
+            cancelLabel: 'Clear'
+        }
+    });
+    $('#id_daterange').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        $("#id_createdAt_gte").val(picker.startDate.format('YYYY-MM-DD'));
+        $("#id_createdAt_lte").val(picker.endDate.format('YYYY-MM-DD'));
+    });
+    $('#id_daterange').on('cancel.daterangepicker', function (ev, picker) {
+        $(this).val('');
+        $("#id_createdAt_gte").val('');
+        $("#id_createdAt_lte").val('');
+    });
+</script>
+{% endblock %}
