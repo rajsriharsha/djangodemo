@@ -17,7 +17,7 @@ class Incident(models.Model):
     date = models.DateField()
     incident_notes = models.TextField(default="")
     classification = models.CharField(
-        max_length=10,verbose_name='Security Classifications_added_13july'
+        max_length=10,verbose_name='Security Classifications_added_13july3'
     )
 
     def save(self, *args, **kwargs):
