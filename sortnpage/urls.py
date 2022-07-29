@@ -34,7 +34,7 @@ urlpatterns = [
         views.PaginationDemoDetail.as_view(),
         name="PaginationDemoDetail",
     ),
-    path("incident-create/", views.IncidentCreateView.as_view(), name="IncidentCreate"),
+    path("incident-create/", views.citylist, name="IncidentCreate"),
     path(
         "date-range-and-durations-create/",
         views.DateRangeAndDurationCreateView.as_view(),

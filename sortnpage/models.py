@@ -15,7 +15,8 @@ class Incident(models.Model):
     number = models.CharField(max_length=127, null=False)  # A123-00, A123-01
     iteration = models.PositiveIntegerField(null=False, editable=False)  # 0
     date = models.DateField()
-    incident_notes = models.TextField(default="",)
+    incident_notes = models.TextField(default="",null=True, blank=True)
+    city = models.CharField(max_length=50,null=True, blank=True)
     classification = models.CharField(
         max_length=10,verbose_name='Security Classifications_added_13july3_OnlineEdited'
     )
