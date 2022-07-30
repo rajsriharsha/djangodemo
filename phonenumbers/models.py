@@ -21,3 +21,6 @@ class CountryCode(models.Model):
     latitude = models.CharField(
         max_length=100, default=""
     )
+    longitude = models.CharField(
+        max_length=100, default=""
+    )
