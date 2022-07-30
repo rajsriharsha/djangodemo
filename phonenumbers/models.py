@@ -15,5 +15,5 @@ class CountryCode(models.Model):
         blank=True,
         default=""
     )
-    geography_remarks = models.CharField(max_length=40)
+    geography_remarks = models.TextField(max_length=1000)
 
