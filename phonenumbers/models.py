@@ -18,6 +18,3 @@ class CountryCode(models.Model):
     continent = models.CharField(
         max_length=50, default=""
     )
-    latitude = models.CharField(
-        max_length=100, default=""
-    )
