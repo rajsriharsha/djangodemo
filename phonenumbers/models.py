@@ -24,3 +24,5 @@ class CountryCode(models.Model):
     longitude = models.CharField(
         max_length=100, default=""
     )
+    geography_remarks = models.TextField(max_length=1000)
+
