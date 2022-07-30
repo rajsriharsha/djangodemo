@@ -15,3 +15,6 @@ class CountryCode(models.Model):
         blank=True,
         default=""
     )
+    continent = models.CharField(
+        max_length=50, default=""
+    )
