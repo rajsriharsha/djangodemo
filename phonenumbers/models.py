@@ -15,6 +15,15 @@ class CountryCode(models.Model):
         blank=True,
         default=""
     )
+    continent = models.CharField(
+        max_length=50, default=""
+    )
+    latitude = models.CharField(
+        max_length=100, default=""
+    )
+    longitude = models.CharField(
+        max_length=100, default=""
+    )
     geography_remarks = models.TextField(max_length=1000)
 
     
