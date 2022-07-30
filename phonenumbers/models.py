@@ -8,7 +8,7 @@ class PhoneNumbers(models.Model):
 
 class CountryCode(models.Model):
     name = models.CharField(max_length=127)
-    country_code = models.CharField(max_length=15)
+    country_code = models.CharField(max_length=20)
     country_info = models.TextField(
         max_length=1000,
         null=True,
