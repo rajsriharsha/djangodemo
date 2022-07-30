@@ -10,7 +10,7 @@ class CountryCode(models.Model):
     name = models.CharField(max_length=127)
     country_code = models.CharField(max_length=5)
     remarks = models.TextField(
-        default="",
+        default="Please enter your remarks",
         null=True,
         blank=True
     )
