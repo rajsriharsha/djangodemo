@@ -45,4 +45,7 @@ urlpatterns = [
     path('countrydropdown/',include('countrydropdown.urls')),
     path('bulkupdate/',include('bulkupdate.urls')),
     path('phonenumbers/',include('phonenumbers.urls')),
+    path('authorisations/',include('authorisations.urls')),
+    path('weather/', include('weather.urls'))
+
 ]

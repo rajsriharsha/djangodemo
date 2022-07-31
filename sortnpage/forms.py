@@ -1,6 +1,6 @@
 import datetime
 
-import bleach
+#import bleach
 from django import forms
 from django.db.models import fields
 from tempus_dominus.widgets import DatePicker
@@ -16,21 +16,19 @@ from .models import Incident, DateRangeAndDuration
 #         )
 #         return super().to_python(formatted_value)
 
+function_renderer = forms.DateTimeField(
+)
 
 class IncidentForm(forms.ModelForm):
-    # date = CustomDateField(widget=DatePicker(options={"format": "DD-MM-YYYY"}))
+
+
 
     class Meta:
         model = Incident
         fields = "__all__"
-        widgets = {"date": DatePicker(options={"format": "DD-MM-YYYY"})}
+        widgets = {"date": DatePicker(options={"format": "DD-MM-YYYY"},  attrs={"class":"form-control",}),
+                   "number": forms.TextInput( attrs={"class":"form-control rounded-0",    })}
 
-    def clean(self):
-        print(self.cleaned_data)
-        self.cleaned_data["incident_notes"] = bleach.clean(
-            self.cleaned_data["incident_notes"]
-        )
-        return self.cleaned_data
 
 
 class DateRangeAndDurationForm(forms.ModelForm):
@@ -38,6 +36,6 @@ class DateRangeAndDurationForm(forms.ModelForm):
         model = DateRangeAndDuration
         fields = "__all__"
         widgets = {
-            "start_date": DatePicker(options={"format": "DD-MM-YYYY"}),
+            "start_date": DatePicker(options={"format": "DD-MM-YYYY"},),
             "end_date": DatePicker(options={"format": "DD-MM-YYYY"}),
         }

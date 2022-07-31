@@ -123,3 +123,9 @@ class DateRangeAndDurationCreateView(CreateView):
     model = DateRangeAndDuration
     form_class = DateRangeAndDurationForm
     success_url = "/date-range-and-durations/"
+
+
+def citylist(request):
+    incidentlist = Incident.objects.all().values('city','classification').distinct()
+    print(incidentlist,'incidentlist')
+    return render(request,'sortnpage/incident_form.html',{'citylist':incidentlist})

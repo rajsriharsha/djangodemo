@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'datetimewidget',
+    #'datetimewidget',
     'django_filters',
     'tempus_dominus',
     'user.apps.UserConfig',
@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'countrydropdown.apps.CountrydropdownConfig',
     'bulkupdate.apps.BulkupdateConfig',
     'phonenumbers.apps.PhonenumbersConfig',
+    'authorisations',
+    'easyaudit',
+    'weather',
 ]
 
 MIDDLEWARE = [
@@ -119,9 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-au'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Australia/Sydney'
 
 USE_I18N = True
 
@@ -132,7 +135,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = "/static/"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
