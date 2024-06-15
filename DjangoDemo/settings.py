@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
+Harsha added a comment
 """
 
 from pathlib import Path
@@ -48,8 +49,8 @@ INSTALLED_APPS = [
     'countrydropdown.apps.CountrydropdownConfig',
     'bulkupdate.apps.BulkupdateConfig',
     'phonenumbers.apps.PhonenumbersConfig',
-    'authorisations',
-    'easyaudit',
+    #'authorisations',
+    #'easyaudit',
     'weather',
 ]
 
@@ -91,9 +92,9 @@ WSGI_APPLICATION = 'DjangoDemo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangodemo',
-        'USER': 'sci83',
-        'PASSWORD': 'Harsha#99',
+        'NAME': 'carzone',
+        'USER': 'carzone',
+        'PASSWORD': 'Harsha#96A',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-au'
 
-TIME_ZONE = 'Australia/Sydney'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -149,7 +150,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-LOGIN_URL = '/api-auth/login/'
+#LOGIN_URL = '/api-auth/login/'
 
 # TEMPUS_DOMINUS_LOCALIZE = True
 DATE_INPUT_FORMATS = [

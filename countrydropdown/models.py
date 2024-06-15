@@ -2,9 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Location(models.Model):
-    city = models.CharField(max_length=127)
-    state = models.CharField(max_length=127)
-    country = models.CharField(max_length=127)
+    city = models.CharField(max_length=127, null=True, blank=True)
+    state = models.CharField(max_length=127, null=True, blank=True)
+    country = models.CharField(max_length=127, null=True, blank=True)
     latitude = models.CharField(
         max_length=100, null=True, blank=True
     )
