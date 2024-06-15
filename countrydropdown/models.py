@@ -2,9 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Location(models.Model):
-    city = models.CharField(max_length=127)
-    state = models.CharField(max_length=127)
-    country = models.CharField(max_length=127)
+    city = models.CharField(max_length=127, null=True, blank=True)
+    state = models.CharField(max_length=127, null=True, blank=True)
+    country = models.CharField(max_length=127, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.city}, {self.state}, {self.country}"
