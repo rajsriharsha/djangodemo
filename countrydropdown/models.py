@@ -5,7 +5,9 @@ class Location(models.Model):
     city = models.CharField(max_length=127)
     state = models.CharField(max_length=127)
     country = models.CharField(max_length=127)
-
+    latitude = models.CharField(
+        max_length=100, null=True, blank=True
+    )
     def __str__(self) -> str:
         return f"{self.city}, {self.state}, {self.country}"
 
