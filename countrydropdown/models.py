@@ -8,6 +8,9 @@ class Location(models.Model):
     latitude = models.CharField(
         max_length=100, null=True, blank=True
     )
+    longitude = models.CharField(
+        max_length=100, null=True, blank=True
+    )
     def __str__(self) -> str:
         return f"{self.city}, {self.state}, {self.country}"
 
