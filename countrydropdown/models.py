@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+# Chaitanya from Dev team commiting changes
 class Location(models.Model):
     city = models.CharField(max_length=127, null=True, blank=True)
     state = models.CharField(max_length=127, null=True, blank=True)
