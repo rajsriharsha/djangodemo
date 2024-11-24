@@ -44,3 +44,4 @@ typing==3.7.4.3
 urllib3==1.25.8
 webencodings==0.5.1
 python==3.10
+django==3.2.1
